@@ -10,8 +10,8 @@ class ElAmbientalista_Updater {
 
     public function __construct( $file ) {
         $this->file = $file;
-        $this->username = 'tu-usuario'; // Reemplaza con tu usuario de GitHub
-        $this->repository = 'el-ambientalista-core'; // Nombre de tu repositorio
+       $this->username = 'elambmex'; // Tu usuario real de GitHub
+$this->repository = 'el-ambientalista-core'; // Nombre exacto del repositorio
         $this->authorize_token = ''; // Déjalo vacío si el repositorio es público
 
         add_filter( 'pre_set_site_transient_update_plugins', [ $this, 'modify_plugin_transient' ] );
