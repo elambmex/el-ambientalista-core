@@ -5,7 +5,9 @@
 |--------------------------------------------------------------------------
 */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 
 class EAC_Modulo_Comentarios_Autor {
 
@@ -16,9 +18,12 @@ class EAC_Modulo_Comentarios_Autor {
 
     public function enqueue_assets() {
         if ( is_author() || is_singular() ) {
+            // Validar que la constante exista para evitar errores fatales
+            $base_url = defined( 'ARP_CORE_URL' ) ? ARP_CORE_URL : plugin_dir_url( __FILE__ );
+            
             wp_enqueue_style(
                 'eac-autor-comentarios-style',
-                ARP_CORE_URL . 'modulo-comentarios-autor/assets/css/style.css',
+                $base_url . 'assets/css/style.css',
                 [],
                 '1.0.0'
             );
@@ -26,8 +31,15 @@ class EAC_Modulo_Comentarios_Autor {
     }
 
     public function registrar_widget_elementor( $widgets_manager ) {
-        require_once ARP_CORE_PATH . 'modulo-comentarios-autor/widgets/widget-autor-comentarios.php';
-        $widgets_manager->register( new \\EAC_Widget_Autor_Comentarios() );
+        $base_path = defined( 'ARP_CORE_PATH' ) ? ARP_CORE_PATH : plugin_dir_path( __FILE__ );
+        $widget_file = $base_path . 'widgets/widget-autor-comentarios.php';
+
+        if ( file_exists( $widget_file ) ) {
+            require_once $widget_file;
+            if ( class_exists( 'EAC_Widget_Autor_Comentarios' ) ) {
+                $widgets_manager->register( new EAC_Widget_Autor_Comentarios() );
+            }
+        }
     }
 }
 

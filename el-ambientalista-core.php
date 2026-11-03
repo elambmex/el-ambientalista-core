@@ -3,7 +3,7 @@
  * Plugin Name: El Ambientalista Core
  * Plugin URI: https://github.com/elambmex/el-ambientalista-core
  * Description: Núcleo de módulos y funcionalidades para El Ambientalista. Como Comenatrios, Complementos de elementos a Live´s Blog´s, enttre otros
- * Version: 1.3.0
+ * Version: 1.2.0
  * Author: Marcos Abraham 
  * Author URI: https://elambientalistapost.com
  */
