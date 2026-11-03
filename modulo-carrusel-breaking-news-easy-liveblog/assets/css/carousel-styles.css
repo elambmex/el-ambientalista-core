@@ -1,0 +1,99 @@
+/* ---------------------------------
+   Estilo Carrusel Liveblog NYT
+   --------------------------------- */
+
+.nyt-liveblog-carousel-wrapper {
+    padding: 20px 10px;
+    margin-bottom: 25px;
+    /* Un borde sutil como NYT */
+    border-top: 2px solid #000;
+    border-bottom: 1px solid #ddd;
+}
+
+.nyt-liveblog-swiper {
+    width: 100%;
+    height: auto;
+}
+
+.liveblog-entry {
+    /* Tipografía Serif (Estilo NYT) */
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #333;
+    padding-left: 20px; /* Espacio para la línea de tiempo */
+    border-left: 3px solid #eee; /* La línea de tiempo */
+    position: relative;
+    height: 100%; /* Asegura que los slides tengan la misma altura */
+}
+
+/* El "punto" en la línea de tiempo */
+.liveblog-entry::before {
+    content: '';
+    position: absolute;
+    left: -11px; /* (border-width / 2) + (dot-width / 2) */
+    top: 15px; /* Ajustar a la altura del avatar */
+    width: 18px;
+    height: 18px;
+    background-color: #f1f1f1;
+    border: 3px solid #ccc;
+    border-radius: 50%;
+}
+
+/* Metadatos del autor */
+.liveblog-entry .entry-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.liveblog-entry .author-info {
+    display: flex;
+    align-items: center;
+    /* Fuente Sans-serif para metadatos (Estilo NYT) */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.liveblog-entry .author-info img {
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.liveblog-entry .author-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.liveblog-entry .author-name {
+    font-weight: bold;
+    font-size: 0.95em;
+    color: #000;
+}
+
+.liveblog-entry .author-position {
+    font-size: 0.85em;
+    color: #666;
+    font-style: italic;
+}
+
+.liveblog-entry .entry-time {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.85em;
+    color: #555;
+    font-weight: bold;
+}
+
+/* Resumen y Ubicación */
+.liveblog-entry .entry-summary p {
+    font-size: 1em;
+    line-height: 1.6;
+    margin: 0 0 15px 0;
+}
+
+.liveblog-entry .entry-location {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8em;
+    color: #777;
+    text-transform: uppercase;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}

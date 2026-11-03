@@ -1,0 +1,43 @@
+.nyt-article {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding: 2rem 0;
+  font-family: Georgia, serif;
+}
+
+.nyt-content {
+  width: 65%;
+}
+
+.nyt-thumbnail img {
+  max-width: 200px;
+  height: auto;
+}
+
+.nyt-meta {
+  font-size: 0.85rem;
+  color: #666;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.nyt-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #111;
+  margin-bottom: 0.5rem;
+}
+
+.nyt-excerpt {
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.4;
+}
+
+.nyt-author {
+  font-size: 0.9rem;
+  color: #000;
+  margin-top: 0.4rem;
+}

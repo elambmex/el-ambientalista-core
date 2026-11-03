@@ -1,0 +1,112 @@
+/* * Estilos del Banner Superior de Última Hora (Estilo NYT)
+ */
+
+/* Banner principal (Top Bar) */
+#bna-top-bar {
+    position: sticky; /* Se fija en la parte superior */
+    top: 0;
+    width: 100%;
+    background-color: #CC0000; /* Rojo autoritativo */
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    z-index: 99999;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
+}
+
+/* Contenido (Etiqueta y Título) */
+#bna-top-bar .bna-content {
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* Evita que el texto largo rompa el diseño */
+    flex-grow: 1; /* Ocupa el espacio disponible */
+}
+
+/* Etiqueta "ÚLTIMA HORA" */
+#bna-top-bar .bna-label {
+    font-weight: 700;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0; /* No permite que se encoja */
+}
+
+/* El pulso (reemplaza el 'blink' por algo más moderno) */
+.bna-pulse {
+    font-size: 0.8em;
+    margin-right: 8px;
+    animation: bnaPulse 1.5s infinite ease-in-out;
+}
+
+/* Animación del pulso */
+@keyframes bnaPulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+/* Título de la noticia */
+#bna-top-bar .bna-title {
+    font-size: 1em;
+    white-space: nowrap; /* Evita que el título se parta */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Añade "..." si es muy largo */
+}
+
+#bna-top-bar .bna-title a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+#bna-top-bar .bna-title a:hover {
+    text-decoration: underline;
+}
+
+/* Botón de cerrar */
+#bna-top-bar .bna-close {
+    font-size: 1.5em;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    margin-left: 20px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+#bna-top-bar .bna-close:hover {
+    opacity: 1;
+}
+
+/* Estilo para el Widget del Shortcode [breaking_news] */
+.breaking-news-widget {
+    background: #fdf5f5; /* Fondo rojo muy pálido */
+    border-left: 4px solid #CC0000;
+    padding: 15px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1.1em;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.breaking-news-widget .bna-label {
+    font-weight: 700;
+    color: #CC0000;
+    margin-right: 10px;
+}
+
+.breaking-news-widget a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.breaking-news-widget a:hover {
+    color: #CC0000;
+}
