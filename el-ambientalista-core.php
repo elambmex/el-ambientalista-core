@@ -8,34 +8,16 @@
  * Author URI: https://elambientalistapost.com
  */
 
-if (!defined('ABSPATH')) exit; // Salir si se accede directamente
+if (!defined('ABSPATH')) exit;
 
-/**
- * Clase principal del Plugin Core
- *
- * Esta clase maneja el inicio del plugin, la carga de módulos
- * y la creación del panel de administración.
- */
 final class El_Ambientalista_Core {
 
-    /**
-     * Versión del Plugin
-     */
     const VERSION = '2.0';
 
-    /**
-     * Instancia única de la clase (Singleton)
-     */
     private static $_instance = null;
 
-    /**
-     * Array para registrar los módulos cargados
-     */
     public $modules = [];
 
-    /**
-     * Instancia principal
-     */
     public static function instance() {
         if (is_null(self::$_instance)) {
             self::$_instance = new self();
@@ -43,29 +25,23 @@ final class El_Ambientalista_Core {
         return self::$_instance;
     }
 
-    /**
-     * Constructor
-     */
     public function __construct() {
         $this->define_constants();
         $this->load_modules();
         
-        // Enganchar las acciones de admin
         add_action('admin_menu', [$this, 'add_admin_menu']);
         add_action('admin_init', [$this, 'register_settings']);
     }
 
-    /**
-     * Definir constantes
-     */
     private function define_constants() {
-        define('ARP_CORE_PATH', plugin_dir_path(__FILE__));
-        define('ARP_CORE_URL', plugin_dir_url(__FILE__));
+        if (!defined('ARP_CORE_PATH')) {
+            define('ARP_CORE_PATH', plugin_dir_path(__FILE__));
+        }
+        if (!defined('ARP_CORE_URL')) {
+            define('ARP_CORE_URL', plugin_dir_url(__FILE__));
+        }
     }
 
-    /**
-     * Cargar todos los módulos
-     */
     private function load_modules() {
         // Módulo 1
         require_once( ARP_CORE_PATH . 'modulo-autor-ubicacion/modulo-autor-ubicacion.php' );
@@ -87,81 +63,70 @@ final class El_Ambientalista_Core {
         require_once( ARP_CORE_PATH . 'modulo-breaking-news/modulo-breaking-news.php' );
         $this->modules['breaking_news'] = 'Breaking News (Widget y Banner)';
         
-// Módulo 6
+        // Módulo 6
         require_once( ARP_CORE_PATH . 'modulo-world-time/world-time-elementor-widget.php' );
         $this->modules['Hora_reporta_localizacion'] = 'Hora de donde se reporta';
         
- // Módulo 7
+        // Módulo 7
         require_once( ARP_CORE_PATH . 'modulo-creditos/module-creditos.php' );
         $this->modules['Modulo_creditos_pie_pagina'] = 'Modulo Pie de Página';
 
- // Módulo 8
+        // Módulo 8
         require_once( ARP_CORE_PATH . 'modulo-ia-noticia/ia-manager.php' );
         $this->modules['modulo_ia_aviso'] = 'Modulo Aviso de Uso de Inteligencia Artificial';
         
         // Módulo 9: Dossier Histórico y Puente
-require_once( ARP_CORE_PATH . 'modulo-dossier-menu/modulo-dossier.php' );
-$this->modules['modulo_dossier_puente'] = 'Dossier Histórico y Puente Liveblog';
+        require_once( ARP_CORE_PATH . 'modulo-dossier-menu/modulo-dossier.php' );
+        $this->modules['modulo_dossier_puente'] = 'Dossier Histórico y Puente Liveblog';
 
-         // Módulo 10: Comentarios Editoriales (Estilo NYT)
+        // Módulo 10: Comentarios Editoriales (Estilo NYT)
         require_once( ARP_CORE_PATH . 'modulo-comentarios/modulo-comentarios.php' );
         $this->modules['modulo_comentarios_nyt'] = 'Comentarios Editoriales (Estilo NYT)';
 
         // Módulo 11: Comentarios Contestados / Creados por el Autor
-//require_once( ARP_CORE_PATH . 'modulo-comentarios-autor/modulo-comentarios-autor.php' );
-//$this->modules['modulo_comentarios_autor'] = 'Comentarios de Autor (Página de Autor)';
-
-        // ... PRÓXIMOS MÓDULOS IRÁN AQUÍ ...
+        $mod_comentarios_autor = ARP_CORE_PATH . 'modulo-comentarios-autor/modulo-comentarios-autor.php';
+        if ( file_exists( $mod_comentarios_autor ) ) {
+            require_once( $mod_comentarios_autor );
+            $this->modules['modulo_comentarios_autor'] = 'Comentarios de Autor (Página de Autor)';
+        }
     }
 
-    /**
-     * Añadir la página del menú de administración
-     */
     public function add_admin_menu() {
         add_menu_page(
-            'El Ambientalista Core', // Título de la página
-            'Ambientalista Core',    // Título del menú
-            'manage_options',        // Capacidad requerida
-            'el-ambientalista-core', // Slug del menú
-            [$this, 'render_dashboard_page'], // Función que renderiza la página
-            'dashicons-leaf',        // Icono
-            25                       // Posición
+            'El Ambientalista Core',
+            'Ambientalista Core',
+            'manage_options',
+            'el-ambientalista-core',
+            [$this, 'render_dashboard_page'],
+            'dashicons-leaf',
+            25
         );
     }
 
-    /**
-     * Registrar los ajustes del plugin
-     */
     public function register_settings() {
-        // Grupo de opciones
         register_setting(
-            'el_ambientalista_core_options_group', // Nombre del grupo
-            'el_ambientalista_settings',           // Nombre de la opción en la BD
-            [$this, 'sanitize_settings']           // (Opcional) Función de sanitización
+            'el_ambientalista_core_options_group',
+            'el_ambientalista_settings',
+            [$this, 'sanitize_settings']
         );
 
-        // Sección de ajustes
         add_settings_section(
-            'arp_core_settings_section_main',     // ID de la sección
-            'Ajustes Generales',                  // Título
-            null,                                 // Callback para mostrar descripción
-            'el-ambientalista-core-settings'      // Página donde mostrarse
+            'arp_core_settings_section_main',
+            'Ajustes Generales',
+            null,
+            'el-ambientalista-core-settings'
         );
 
-        // Campo de ajuste (EJEMPLO)
         add_settings_field(
-            'ejemplo_api_key',                          // ID del campo
-            'Ejemplo de Clave API',                     // Etiqueta
-            [$this, 'render_field_text'],               // Callback para renderizar el campo
-            'el-ambientalista-core-settings',           // Página
-            'arp_core_settings_section_main',           // Sección
-            ['id' => 'ejemplo_api_key', 'label_for' => 'ejemplo_api_key'] // Argumentos
+            'ejemplo_api_key',
+            'Ejemplo de Clave API',
+            [$this, 'render_field_text'],
+            'el-ambientalista-core-settings',
+            'arp_core_settings_section_main',
+            ['id' => 'ejemplo_api_key', 'label_for' => 'ejemplo_api_key']
         );
     }
 
-    /**
-     * Renderizar un campo de texto simple para la API de Ajustes
-     */
     public function render_field_text($args) {
         $options = get_option('el_ambientalista_settings');
         $id = $args['id'];
@@ -175,9 +140,6 @@ $this->modules['modulo_dossier_puente'] = 'Dossier Histórico y Puente Liveblog'
         echo '<p class="description">Este es un campo de ejemplo. Lo usaremos para ajustes reales pronto.</p>';
     }
 
-    /**
-     * (Opcional) Sanitizar los datos guardados
-     */
     public function sanitize_settings($input) {
         $sanitized_input = [];
         if (isset($input['ejemplo_api_key'])) {
@@ -186,10 +148,6 @@ $this->modules['modulo_dossier_puente'] = 'Dossier Histórico y Puente Liveblog'
         return $sanitized_input;
     }
 
-
-    /**
-     * Renderizar la página del Dashboard (HTML)
-     */
     public function render_dashboard_page() {
         $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'general';
         ?>
@@ -205,7 +163,6 @@ $this->modules['modulo_dossier_puente'] = 'Dossier Histórico y Puente Liveblog'
             </h2>
 
             <?php
-            // Contenido de las pestañas
             if ($active_tab == 'general') {
                 $this->render_tab_general();
             } elseif ($active_tab == 'modulos') {
@@ -220,9 +177,6 @@ $this->modules['modulo_dossier_puente'] = 'Dossier Histórico y Puente Liveblog'
         <?php
     }
 
-    /**
-     * Pestaña: General
-     */
     private function render_tab_general() {
         ?>
         <h2>¡Bienvenido al Panel de Control Core!</h2>
@@ -231,9 +185,6 @@ $this->modules['modulo_dossier_puente'] = 'Dossier Histórico y Puente Liveblog'
         <?php
     }
     
-    /**
-     * Pestaña: Módulos
-     */
     private function render_tab_modulos() {
         ?>
         <h2>Módulos Cargados (<?php echo count($this->modules); ?>)</h2>
@@ -246,36 +197,23 @@ $this->modules['modulo_dossier_puente'] = 'Dossier Histórico y Puente Liveblog'
         <?php
     }
     
-    /**
-     * Pestaña: Ajustes
-     */
     private function render_tab_ajustes() {
         ?>
         <form method="post" action="options.php">
             <?php
-            // Esto imprime los campos de seguridad (nonce, etc.)
             settings_fields('el_ambientalista_core_options_group');
-            
-            // Esto imprime las secciones y campos registrados
             do_settings_sections('el-ambientalista-core-settings');
-            
-            // Botón de guardar
             submit_button('Guardar Cambios');
             ?>
         </form>
         <?php
     }
 
-    /**
-     * Pestaña: Diagnóstico
-     */
     private function render_tab_diagnostico() {
-        // Chequear estado de Elementor
         $elementor_status = did_action('elementor/loaded') 
             ? '<span style="color:green; font-weight:bold;">Activo y Cargado</span>' 
             : '<span style="color:red; font-weight:bold;">No Detectado</span>';
 
-        // Chequear estado de WP_DEBUG
         $debug_status = (defined('WP_DEBUG') && WP_DEBUG)
             ? '<span style="color:orange; font-weight:bold;">Activado</span> (Recomendado desactivar en producción)'
             : '<span style="color:green; font-weight:bold;">Desactivado</span>';
@@ -298,5 +236,4 @@ $this->modules['modulo_dossier_puente'] = 'Dossier Histórico y Puente Liveblog'
     }
 }
 
-// Iniciar el plugin
 El_Ambientalista_Core::instance();
