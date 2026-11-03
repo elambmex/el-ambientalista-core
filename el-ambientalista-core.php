@@ -106,9 +106,10 @@ $this->modules['modulo_dossier_puente'] = 'Dossier Histórico y Puente Liveblog'
          // Módulo 10: Comentarios Editoriales (Estilo NYT)
         require_once( ARP_CORE_PATH . 'modulo-comentarios/modulo-comentarios.php' );
         $this->modules['modulo_comentarios_nyt'] = 'Comentarios Editoriales (Estilo NYT)';
+
         // Módulo 11: Comentarios Contestados / Creados por el Autor
-require_once( ARP_CORE_PATH . 'modulo-comentarios-autor/modulo-comentarios-autor.php' );
-$this->modules['modulo_comentarios_autor'] = 'Comentarios de Autor (Página de Autor)';
+//require_once( ARP_CORE_PATH . 'modulo-comentarios-autor/modulo-comentarios-autor.php' );
+//$this->modules['modulo_comentarios_autor'] = 'Comentarios de Autor (Página de Autor)';
 
         // ... PRÓXIMOS MÓDULOS IRÁN AQUÍ ...
     }
