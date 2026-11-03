@@ -1,10 +1,12 @@
 <?php
-/*
-Plugin Name: El Ambientalista - Funcionalidades Core
-Description: Un plugin que consolida todas las funcionalidades personalizadas del sitio (Elementor, CPTs, Admin Tweaks, etc.)
-Version: 2.0
-Author: Marcos
-*/
+/**
+ * Plugin Name: El Ambientalista Core
+ * Plugin URI: https://github.com/tu-usuario/el-ambientalista-core
+ * Description: Núcleo de módulos y funcionalidades para El Ambientalista. Como Comenatrios, Complementos de elementos a Live´s Blog´s, enttre otros
+ * Version: 1.0.0
+ * Author: Marcos Abraham 
+ * Author URI: https://elambientalistapost.com
+ */
 
 if (!defined('ABSPATH')) exit; // Salir si se accede directamente
 
@@ -92,7 +94,8 @@ final class El_Ambientalista_Core {
  // Módulo 7
         require_once( ARP_CORE_PATH . 'modulo-creditos/module-creditos.php' );
         $this->modules['Modulo_creditos_pie_pagina'] = 'Modulo Pie de Página';
- // Módulo 8
+
+ // Módulo 8
         require_once( ARP_CORE_PATH . 'modulo-ia-noticia/ia-manager.php' );
         $this->modules['modulo_ia_aviso'] = 'Modulo Aviso de Uso de Inteligencia Artificial';
         
